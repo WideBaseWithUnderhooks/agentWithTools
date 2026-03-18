@@ -1,0 +1,4 @@
+langchain-ollama
+langgraph
+duckduckgo-search
+python-dotenv

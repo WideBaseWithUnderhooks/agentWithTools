@@ -12,6 +12,7 @@ Thumbs.db
 .env
 *.log
 *.swp
+*playground*
 
 # --- Node.js ---
 node_modules/
