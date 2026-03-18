@@ -53,4 +53,4 @@
 - **Persistent Checkpointing:** Add a SQLite backend to LangGraph to allow "resuming" interrupted agent sessions.
 - **Multi-Agent Orchestration:** Implementing a "Supervisor" pattern to delegate between specialized search and specialized code-execution agents.
 - **Agents/Tools:** Add another agent. Add MCP(s). - Specifically for my mongoDB vector index db instance.
-- **Hybrid RAG:** Integrating a local vector database to combine web search with internal documentation.
+- **Hybrid RAG:** Consider merging this with my currnet RAG app?
