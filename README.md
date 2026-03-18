@@ -46,6 +46,8 @@
 
 ## Future Roadmap
 - **Dockerize:** Get this runnable for external demos
+- **Hosting:** Yep.
+- **UI:** Add a nextJS or reactJS front end.
 - **Guardrails & Safety:** Yes, do this :-). Currently the graph is configured with a maximum recursion limit to prevent infinite tool-calling loops.
 - **Testing & Evals:** Need to add.
 - **Persistent Checkpointing:** Add a SQLite backend to LangGraph to allow "resuming" interrupted agent sessions.
