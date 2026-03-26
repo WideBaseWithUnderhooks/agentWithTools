@@ -2,11 +2,14 @@ from langchain_community.tools import DuckDuckGoSearchRun
 from langchain_core.tools import tool
 
 @tool
-def web_search(query: str) -> str:
-    """
-    Search the web for real-time information.
-    Use this for news, current events, or facts not in your training data.
-    """
-    # TODO: Change this to Tavily or Serper.
+def web_search(query) -> str:
+    """Search the web for a query string and return results."""
+    if isinstance(query, dict) and "value" in query:
+        query = query["value"]
+    if not isinstance(query, str):
+        raise ValueError("query must be string")
+    print("web_search CALLED with:", repr(query))
     search = DuckDuckGoSearchRun()
-    return search.run(query)
+    result = search.run(query)
+    print("web_search RESULT:", repr(result))
+    return result

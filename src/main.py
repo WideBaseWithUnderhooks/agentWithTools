@@ -5,7 +5,7 @@ from src.graph import app
 load_dotenv()
 
 def main():
-    print("--- 🌐 Ask-the-Web Agent (Local Llama 3.2) ---")
+    print("--- 🌐 Ask-the-Internetz Agent (Local Llama 3.2) ---")
     
     while True:
         user_input = input("\nUser: ")
@@ -14,13 +14,16 @@ def main():
 
         inputs = {"messages": [("user", user_input)]}
         
-        # Stream updates to show the recruiter the Node-by-Node execution
+        # Stream updates to show node by node execution
         for output in app.stream(inputs, stream_mode="updates"):
             for node, data in output.items():
                 print(f"\n[Node: {node.upper()}]")
                 if "messages" in data:
                     last_msg = data["messages"][-1]
                     
+                    print("tool_calls:", getattr(last_msg, "tool_calls", None))
+                    print("content:", last_msg.content)
+
                     if hasattr(last_msg, 'tool_calls') and last_msg.tool_calls:
                         print(f"  Action: Calling {last_msg.tool_calls[0]['name']}")
                     elif last_msg.content:
