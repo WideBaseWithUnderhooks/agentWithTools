@@ -44,6 +44,32 @@
 - **Environment:** Python 3.11+  
 - **Observability:** LangSmith (OpenTelemetry-compatible tracing)
 
+## Golden Dataset Evals
+
+This repo now includes a behavior-based evaluation harness under `evals/`.
+
+- **Dataset:** `evals/cases/golden_v1.json` (30 cases)
+- **Scoring:** tool-use correctness, factuality, latency, and failure rate
+- **Output artifacts:** JSON + Markdown reports in `evals/results/`
+
+Run evals:
+
+```bash
+python -m evals.runner
+```
+
+Run evals with gate enforcement:
+
+```bash
+python -m evals.runner --aggregate-gate 0.70 --fail-on-gate
+```
+
+Run evals with optional LLM judge:
+
+```bash
+python -m evals.runner --judge-model llama3.2:3b
+```
+
 ## Future Roadmap
 - **Dockerize:** Get this runnable for external demos
 - **Hosting:** Yep, needs it. (add it to my current herku acct?)

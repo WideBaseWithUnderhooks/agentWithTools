@@ -1,11 +1,12 @@
 import os # TODO: import sys?
+import time
 from dotenv import load_dotenv
 from src.graph import app
 
 load_dotenv()
 
 def main():
-    print("--- 🌐 Ask-the-Internetz Agent (Local Llama 3.2) ---")
+    print("--- 🌐 Ask-the-Internetz Agent (local llama3.2:3b) ---")
     
     while True:
         user_input = input("\nUser: ")

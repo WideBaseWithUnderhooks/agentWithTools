@@ -1,0 +1,458 @@
+[
+  {
+    "id": "must_call_001",
+    "prompt": "What happened in AI this week? Include notable announcements.",
+    "tool_policy": "must_call",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_query_contains": [
+      "ai",
+      "week"
+    ],
+    "required_answer_keywords": [
+      "announcement"
+    ],
+    "max_latency_ms": 20000,
+    "tags": [
+      "current-events",
+      "tool-correctness"
+    ]
+  },
+  {
+    "id": "must_call_002",
+    "prompt": "Who won the most recent Formula 1 race?",
+    "tool_policy": "must_call",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_query_contains": [
+      "most recent",
+      "formula 1"
+    ],
+    "max_latency_ms": 20000,
+    "tags": [
+      "current-events"
+    ]
+  },
+  {
+    "id": "must_call_003",
+    "prompt": "What is the weather in Seattle right now?",
+    "tool_policy": "must_call",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_query_contains": [
+      "weather",
+      "seattle"
+    ],
+    "required_answer_keywords": [
+      "Seattle"
+    ],
+    "max_latency_ms": 20000,
+    "tags": [
+      "weather",
+      "tool-correctness"
+    ]
+  },
+  {
+    "id": "must_call_004",
+    "prompt": "Give me today's top 3 cybersecurity headlines.",
+    "tool_policy": "must_call",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_query_contains": [
+      "today",
+      "cybersecurity"
+    ],
+    "required_answer_keywords": [
+      "headline"
+    ],
+    "max_latency_ms": 20000,
+    "tags": [
+      "current-events"
+    ]
+  },
+  {
+    "id": "must_call_005",
+    "prompt": "What are the latest TypeScript releases and notes?",
+    "tool_policy": "must_call",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_query_contains": [
+      "latest",
+      "typescript"
+    ],
+    "max_latency_ms": 20000,
+    "tags": [
+      "developer-news"
+    ]
+  },
+  {
+    "id": "must_call_006",
+    "prompt": "Find current prices for Tesla stock and summarize movement today.",
+    "tool_policy": "must_call",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_query_contains": [
+      "tesla",
+      "today"
+    ],
+    "required_answer_keywords": [
+      "Tesla"
+    ],
+    "max_latency_ms": 20000,
+    "tags": [
+      "finance"
+    ]
+  },
+  {
+    "id": "must_call_007",
+    "prompt": "What are today's major cloud outages?",
+    "tool_policy": "must_call",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_query_contains": [
+      "today",
+      "cloud outage"
+    ],
+    "max_latency_ms": 20000,
+    "tags": [
+      "ops",
+      "current-events"
+    ]
+  },
+  {
+    "id": "must_call_008",
+    "prompt": "Search for recent updates about NASA Artemis program.",
+    "tool_policy": "must_call",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_query_contains": [
+      "recent",
+      "artemis"
+    ],
+    "required_answer_keywords": [
+      "Artemis"
+    ],
+    "max_latency_ms": 20000,
+    "tags": [
+      "science-news"
+    ]
+  },
+  {
+    "id": "must_call_009",
+    "prompt": "What are this week's major Python security advisories?",
+    "tool_policy": "must_call",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_query_contains": [
+      "week",
+      "python",
+      "security"
+    ],
+    "max_latency_ms": 20000,
+    "tags": [
+      "security",
+      "developer-news"
+    ]
+  },
+  {
+    "id": "must_call_010",
+    "prompt": "Find recent regulatory news about AI in the EU.",
+    "tool_policy": "must_call",
+    "expected_tools": [
+      "web_search"
+    ],
+    "expected_query_contains": [
+      "recent",
+      "ai",
+      "eu"
+    ],
+    "required_answer_keywords": [
+      "EU"
+    ],
+    "max_latency_ms": 20000,
+    "tags": [
+      "policy",
+      "current-events"
+    ]
+  },
+  {
+    "id": "must_not_call_001",
+    "prompt": "What is 17 + 26?",
+    "tool_policy": "must_not_call",
+    "required_answer_keywords": [
+      "43"
+    ],
+    "max_latency_ms": 8000,
+    "tags": [
+      "math",
+      "tool-avoidance"
+    ]
+  },
+  {
+    "id": "must_not_call_002",
+    "prompt": "Explain recursion in one sentence.",
+    "tool_policy": "must_not_call",
+    "required_answer_keywords": [
+      "recursion"
+    ],
+    "max_latency_ms": 8000,
+    "tags": [
+      "concepts",
+      "tool-avoidance"
+    ]
+  },
+  {
+    "id": "must_not_call_003",
+    "prompt": "Convert 10 kilometers to miles.",
+    "tool_policy": "must_not_call",
+    "required_answer_keywords": [
+      "6.2"
+    ],
+    "max_latency_ms": 8000,
+    "tags": [
+      "conversion",
+      "tool-avoidance"
+    ]
+  },
+  {
+    "id": "must_not_call_004",
+    "prompt": "Write a haiku about software bugs.",
+    "tool_policy": "must_not_call",
+    "required_answer_keywords": [
+      "bug"
+    ],
+    "max_latency_ms": 8000,
+    "tags": [
+      "creative",
+      "tool-avoidance"
+    ]
+  },
+  {
+    "id": "must_not_call_005",
+    "prompt": "What is the capital of France?",
+    "tool_policy": "must_not_call",
+    "required_answer_keywords": [
+      "Paris"
+    ],
+    "max_latency_ms": 8000,
+    "tags": [
+      "static-facts",
+      "tool-avoidance"
+    ]
+  },
+  {
+    "id": "must_not_call_006",
+    "prompt": "Sort this list ascending: 9, 3, 7, 1",
+    "tool_policy": "must_not_call",
+    "required_answer_keywords": [
+      "1",
+      "3",
+      "7",
+      "9"
+    ],
+    "max_latency_ms": 8000,
+    "tags": [
+      "reasoning",
+      "tool-avoidance"
+    ]
+  },
+  {
+    "id": "must_not_call_007",
+    "prompt": "Is this statement true: water boils at 100C at sea level?",
+    "tool_policy": "must_not_call",
+    "required_answer_keywords": [
+      "true"
+    ],
+    "max_latency_ms": 8000,
+    "tags": [
+      "science-basics",
+      "tool-avoidance"
+    ]
+  },
+  {
+    "id": "must_not_call_008",
+    "prompt": "Give me a Python function that reverses a string.",
+    "tool_policy": "must_not_call",
+    "required_answer_keywords": [
+      "def"
+    ],
+    "max_latency_ms": 8000,
+    "tags": [
+      "coding",
+      "tool-avoidance"
+    ]
+  },
+  {
+    "id": "must_not_call_009",
+    "prompt": "What is 12 multiplied by 11?",
+    "tool_policy": "must_not_call",
+    "required_answer_keywords": [
+      "132"
+    ],
+    "max_latency_ms": 8000,
+    "tags": [
+      "math",
+      "tool-avoidance"
+    ]
+  },
+  {
+    "id": "must_not_call_010",
+    "prompt": "Define polymorphism in object-oriented programming.",
+    "tool_policy": "must_not_call",
+    "required_answer_keywords": [
+      "polymorphism"
+    ],
+    "max_latency_ms": 8000,
+    "tags": [
+      "concepts",
+      "tool-avoidance"
+    ]
+  },
+  {
+    "id": "optional_001",
+    "prompt": "Summarize trends in AI coding assistants.",
+    "tool_policy": "optional",
+    "expected_tools": [
+      "web_search"
+    ],
+    "required_answer_keywords": [
+      "assistant"
+    ],
+    "max_latency_ms": 15000,
+    "tags": [
+      "ambiguous"
+    ]
+  },
+  {
+    "id": "optional_002",
+    "prompt": "What should I learn next after Python basics?",
+    "tool_policy": "optional",
+    "required_answer_keywords": [
+      "project"
+    ],
+    "max_latency_ms": 12000,
+    "tags": [
+      "advice"
+    ]
+  },
+  {
+    "id": "optional_003",
+    "prompt": "Explain current tradeoffs between local and hosted LLMs.",
+    "tool_policy": "optional",
+    "expected_tools": [
+      "web_search"
+    ],
+    "required_answer_keywords": [
+      "latency",
+      "cost"
+    ],
+    "max_latency_ms": 15000,
+    "tags": [
+      "analysis"
+    ]
+  },
+  {
+    "id": "optional_004",
+    "prompt": "Give me a concise briefing on modern observability for AI agents.",
+    "tool_policy": "optional",
+    "expected_tools": [
+      "web_search"
+    ],
+    "required_answer_keywords": [
+      "tracing"
+    ],
+    "max_latency_ms": 15000,
+    "tags": [
+      "analysis",
+      "ops"
+    ]
+  },
+  {
+    "id": "optional_005",
+    "prompt": "Should a startup use LangGraph for orchestration?",
+    "tool_policy": "optional",
+    "required_answer_keywords": [
+      "depends"
+    ],
+    "max_latency_ms": 12000,
+    "tags": [
+      "decision-support"
+    ]
+  },
+  {
+    "id": "optional_006",
+    "prompt": "List practical steps to improve model reliability in production.",
+    "tool_policy": "optional",
+    "required_answer_keywords": [
+      "evaluation",
+      "monitoring"
+    ],
+    "max_latency_ms": 12000,
+    "tags": [
+      "reliability"
+    ]
+  },
+  {
+    "id": "optional_007",
+    "prompt": "What is a good architecture for tool-using agents?",
+    "tool_policy": "optional",
+    "required_answer_keywords": [
+      "state",
+      "tool"
+    ],
+    "max_latency_ms": 12000,
+    "tags": [
+      "architecture"
+    ]
+  },
+  {
+    "id": "optional_008",
+    "prompt": "How can I reduce hallucinations in a search-augmented assistant?",
+    "tool_policy": "optional",
+    "required_answer_keywords": [
+      "citation",
+      "verification"
+    ],
+    "max_latency_ms": 12000,
+    "tags": [
+      "reliability",
+      "safety"
+    ]
+  },
+  {
+    "id": "optional_009",
+    "prompt": "Draft an interview prep plan for a staff AI engineer role.",
+    "tool_policy": "optional",
+    "required_answer_keywords": [
+      "system design",
+      "leadership"
+    ],
+    "max_latency_ms": 12000,
+    "tags": [
+      "career"
+    ]
+  },
+  {
+    "id": "optional_010",
+    "prompt": "What are anti-patterns in agentic systems?",
+    "tool_policy": "optional",
+    "required_answer_keywords": [
+      "loop",
+      "guardrail"
+    ],
+    "max_latency_ms": 12000,
+    "tags": [
+      "architecture",
+      "safety"
+    ]
+  }
+]

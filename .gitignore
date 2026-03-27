@@ -58,3 +58,7 @@ coverage.xml
 *.code-workspace
 *.sublime-project
 *.sublime-workspace
+
+# --- Evals ---
+evals/results/*.json
+evals/results/*.md
