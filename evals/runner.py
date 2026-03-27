@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 import time
 from dataclasses import asdict
@@ -46,6 +47,17 @@ def build_tag_breakdown(cases: list[EvalCase], score_dicts: list[dict]) -> dict[
         }
 
     return breakdown
+
+
+def _fmt_seconds(milliseconds: int) -> str:
+    return f"{(milliseconds / 1000):.1f}s"
+
+
+def _percentile(sorted_values: list[int], p: float) -> float:
+    if not sorted_values:
+        return 0.0
+    rank = max(0, min(len(sorted_values) - 1, math.ceil(p * len(sorted_values)) - 1))
+    return float(sorted_values[rank])
 
 
 def gates_passed(summary: dict, args: argparse.Namespace) -> tuple[bool, list[str]]:
@@ -226,6 +238,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Exit non-zero if the aggregate score does not meet the gate.",
     )
+    parser.add_argument(
+        "--quiet",
+        action="store_true",
+        help="Disable per-case progress output.",
+    )
     return parser.parse_args()
 
 
@@ -241,11 +258,34 @@ def main() -> int:
     run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     run_records: list[EvalRunRecord] = []
     case_scores = []
+    mode = "Smoke" if "smoke" in args.dataset.stem.lower() else "Full"
 
-    for case in cases:
+    if not args.quiet:
+        print(f"Mode: {mode} ({len(cases)} active)")
+
+    for index, case in enumerate(cases, start=1):
         run = run_case(case)
         run_records.append(run)
-        case_scores.append(score_case(case, run, judge_model=judge_model))
+        case_score = score_case(case, run, judge_model=judge_model)
+        case_scores.append(case_score)
+
+        if not args.quiet:
+            case_pass = case_score.aggregate_score >= args.aggregate_gate and run.success
+            print(
+                f"[{index}/{len(cases)}] {case.id} | {_fmt_seconds(run.latency_ms)} | "
+                f"{'pass' if case_pass else 'fail'} | tool={case_score.tool_use_score:.2f} "
+                f"fact={case_score.factuality_score:.2f} lat={case_score.latency_score:.2f} "
+                f"fail={case_score.failure_score:.2f}"
+            )
+            running_summary = summarize_scores(case_scores)
+            print(
+                "Running Aggregate: "
+                f"{running_summary.get('aggregate', 0.0):.2f} | "
+                f"Tool: {running_summary.get('tool_use', 0.0):.2f} | "
+                f"Fact: {running_summary.get('factuality', 0.0):.2f} | "
+                f"Latency: {running_summary.get('latency', 0.0):.2f} | "
+                f"Failure: {running_summary.get('failure', 0.0):.2f}"
+            )
 
     score_dicts = scores_to_dict(case_scores)
     summary = summarize_scores(case_scores)
@@ -277,8 +317,14 @@ def main() -> int:
     )
 
     print(f"Run ID: {run_id}")
+    print(f"Mode: {mode} ({len(cases)} active)")
     print(f"Aggregate score: {summary.get('aggregate', 0.0):.3f}")
     print(f"Gate ({args.aggregate_gate:.2f}): {'PASS' if passed else 'FAIL'}")
+    latencies = sorted(record.latency_ms for record in run_records)
+    p50_ms = _percentile(latencies, 0.50)
+    p95_ms = _percentile(latencies, 0.95)
+    print(f"p50: {_fmt_seconds(int(p50_ms))} | p95: {_fmt_seconds(int(p95_ms))}")
+    print(f"Cases: {len(cases)} | Passed Gate: {'yes' if passed else 'no'}")
     if gate_reasons:
         for reason in gate_reasons:
             print(f"Gate reason: {reason}")

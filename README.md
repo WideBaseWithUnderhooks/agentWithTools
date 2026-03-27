@@ -70,6 +70,18 @@ Run evals with optional LLM judge:
 python -m evals.runner --judge-model llama3.2:3b
 ```
 
+Run the interactive agent with additional node-level debug output:
+
+```bash
+python src/main.py --verbose
+```
+
+Disable the live spinner/timer line:
+
+```bash
+python src/main.py --no-ticker
+```
+
 ## Future Roadmap
 - **Dockerize:** Get this runnable for external demos
 - **Hosting:** Yep, needs it. (add it to my current herku acct?)

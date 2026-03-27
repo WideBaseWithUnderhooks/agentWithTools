@@ -36,6 +36,12 @@ Run fast local smoke evals:
 python -m evals.runner --dataset evals/cases/golden_smoke_v1.json
 ```
 
+Run with minimal console output:
+
+```bash
+python -m evals.runner --dataset evals/cases/golden_smoke_v1.json --quiet
+```
+
 Optional with judge model:
 
 ```bash
