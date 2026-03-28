@@ -67,7 +67,10 @@ python src/main.py --no-ticker
 
 ---
 
+
 ## Golden Dataset Evals
+
+See detailed evaluation instructions in [evals/README.md](evals/README.md).
 
 This repo includes a behavior-based evaluation harness under `evals/`.
 
