@@ -44,9 +44,32 @@
 - **Environment:** Python 3.11+  
 - **Observability:** LangSmith (OpenTelemetry-compatible tracing)
 
+
+## Usage: Running the Agent
+
+To run the interactive agent:
+
+```bash
+python src/main.py
+```
+
+Run with additional node-level debug output:
+
+```bash
+python src/main.py --verbose
+```
+
+Disable the live spinner/timer line:
+
+```bash
+python src/main.py --no-ticker
+```
+
+---
+
 ## Golden Dataset Evals
 
-This repo now includes a behavior-based evaluation harness under `evals/`.
+This repo includes a behavior-based evaluation harness under `evals/`.
 
 - **Dataset:** `evals/cases/golden_v1.json` (30 cases)
 - **Scoring:** tool-use correctness, factuality, latency, and failure rate
@@ -68,18 +91,6 @@ Run evals with optional LLM judge:
 
 ```bash
 python -m evals.runner --judge-model llama3.2:3b
-```
-
-Run the interactive agent with additional node-level debug output:
-
-```bash
-python src/main.py --verbose
-```
-
-Disable the live spinner/timer line:
-
-```bash
-python src/main.py --no-ticker
 ```
 
 ## Future Roadmap
