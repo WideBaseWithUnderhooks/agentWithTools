@@ -2,7 +2,7 @@ import { StateGraph, START } from '@langchain/langgraph';
 import { workerAgent } from '../agents/worker.js';
 import { managerAgent } from '../agents/manager.js';
 import { conductorAgent } from '../agents/conductor.js';
-import { routeAgent } from './router.js';
+import { routeAfterWorker, routeAfterManager, routeAfterConductor } from './router.js';
 import type { AgentState } from '../types/state.js';
 
 export function buildGraph() {
@@ -20,9 +20,9 @@ export function buildGraph() {
     .addNode('manager', managerAgent)
     .addNode('conductor', conductorAgent)
     .addEdge(START, 'worker')
-    .addConditionalEdges('worker', routeAgent)
-    .addConditionalEdges('manager', routeAgent)
-    .addConditionalEdges('conductor', routeAgent)
+    .addConditionalEdges('worker', routeAfterWorker)
+    .addConditionalEdges('manager', routeAfterManager)
+    .addConditionalEdges('conductor', routeAfterConductor)
     .compile();
 }
 

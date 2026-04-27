@@ -1,5 +1,5 @@
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
-import { llm } from '../utils/llm.js';
+import { conductorLLM } from '../utils/llm.js';
 import { log } from '../utils/logger.js';
 import type { AgentState } from '../types/state.js';
 
@@ -21,7 +21,7 @@ export async function conductorAgent(state: AgentState): Promise<Partial<AgentSt
     ),
   ];
 
-  const response = await llm.invoke(messages);
+  const response = await conductorLLM.invoke(messages);
 
   console.log('\n✅ Final output ready!');
 
