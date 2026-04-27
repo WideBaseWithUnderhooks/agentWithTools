@@ -92,3 +92,8 @@ Then wire it into the graph in `src/graph/builder.ts`.
 - developed with using ollama locally
 - The graph structure makes it easy to add more agents or change the flow
 
+## todos / roadmap
+- support a list of sites
+- support my openAI key
+- add a UI?
+
