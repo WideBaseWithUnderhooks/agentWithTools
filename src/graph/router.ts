@@ -1,13 +1,25 @@
 import { END } from '@langchain/langgraph';
 import type { AgentState, RouteDecision } from '../types/state.js';
 
-export function routeAgent(state: AgentState): RouteDecision {
-  if (state.currentStep === 'manager') {
-    return 'manager';
-  } else if (state.currentStep === 'conductor') {
+const MAX_ITERATIONS = 3;
+
+export function routeAfterWorker(_state: AgentState): RouteDecision {
+  return 'manager';
+}
+
+export function routeAfterManager(state: AgentState): RouteDecision {
+  if ((state.iterations || 0) >= MAX_ITERATIONS) {
+    console.warn('⚠️  Max iterations reached, forcing completion');
     return 'conductor';
-  } else if (state.currentStep === 'end') {
-    return END;
   }
+
+  if (state.managerDecision?.approved) {
+    return 'conductor';
+  }
+
   return 'worker';
+}
+
+export function routeAfterConductor(_state: AgentState): RouteDecision {
+  return END;
 }
