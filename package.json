@@ -1,0 +1,28 @@
+{
+  "name": "multi-agent-conductor-langgraph",
+  "version": "1.0.0",
+  "description": "A multi-agent system using worker-manager-conductor pattern with LangGraph",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "example:simple": "tsx examples/simple-task.ts",
+    "example:advanced": "tsx examples/advanced.ts",
+    "example:parallel": "tsx examples/parallel-workers.ts",
+    "clean": "rm -rf dist"
+  },
+  "keywords": ["ai", "agents", "langgraph", "typescript", "multi-agent"],
+  "dependencies": {
+    "@langchain/langgraph": "^0.2.9",
+    "@langchain/core": "^0.3.80",
+    "@langchain/openai": "^0.3.16",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3",
+    "tsx": "^4.7.0"
+  }
+}
