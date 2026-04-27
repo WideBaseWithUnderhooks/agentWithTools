@@ -1,108 +1,100 @@
-# Agent With Tools
+# Multi-Agent Conductor System
 
-**Local agentic search (ReAct pattern)** — a local-first, high-performance search agent built with **LangGraph** and **Ollama**. This project demonstrates a ReAct (Reasoning + Acting) implementation that lets an LLM autonomously navigate web search and tool calls to answer complex, real-time queries.
+A TypeScript multi-agent AI system built with LangGraph. I put this together to experiment with the worker-manager-conductor pattern for orchestrating AI agents.
 
----
+## What It Does
 
-## Key Features
+The system has three types of agents working together:
 
-- **State Machine architecture** for non-deterministic agent flows  
-- **Cyclic graph reflection** to iteratively refine queries when tool outputs are insufficient  
-- **Decoupled tool registry**: modular plugins under `src/tools/` for easy extension  
-- **Local-first inference** using Ollama (Llama 3.2 3b) for zero data egress and low latency  
-- **Production-grade observability** via LangSmith tracing
+- **Workers** - These guys do the actual work. They dig into tasks and come back with findings.
+- **Managers** - They review what the workers found and decide if it's good enough or needs more work.
+- **Conductors** - They pull everything together and produce the final output.
 
----
+## The Flow
 
-## Architecture & Design Decisions
-
-### 1. State Management (LangGraph)
-- **Cyclic Graphs**  
-  Enables the agent to loop back and re-evaluate tool outputs, supporting iterative refinement rather than a single linear pass.
-
-- **Reducer Patterns**  
-  Uses `add_messages` style reducers to manage conversation state and memory buffers without manual list manipulation.
-
-### 2. Decoupled Tool Registry
-- **Separation of Concerns**  
-  Tools live in `src/tools/` as modular plugins. Adding capabilities (SQL execution, File I/O, etc.) does not require changing core orchestration.
-
-- **Schema Introspection**  
-  Uses `@tool`-style decorators to auto-generate JSON schemas and enforce strict contracts between the LLM and execution environment.
-
-### 3. Local-First Inference
-- **Ollama Integration**  
-  Optimized for Llama 3.2 (3b) to leverage native tool-calling fine-tuning. This provides advanced orchestration logic with no external data egress and minimal latency.
-
----
-
-## Tech Stack
-
-- **Orchestration:** LangGraph  
-- **LLM Provider:** Ollama (Llama 3.2:3b)  
-- **Search Engine:** DuckDuckGo (via langchain-community)  
-- **Environment:** Python 3.11+  
-- **Observability:** LangSmith (OpenTelemetry-compatible tracing)
-
-
-## Usage: Running the Agent
-
-To run the interactive agent:
-
-```bash
-python src/main.py
+```
+Worker does the analysis
+    ↓
+Manager reviews it
+    ↓
+Conductor synthesizes everything
+    ↓
+You get your result
 ```
 
-Run with additional node-level debug output:
+## Getting Started
 
+Install dependencies:
 ```bash
-python src/main.py --verbose
+npm install
 ```
 
-Disable the live spinner/timer line:
-
-```bash
-python src/main.py --no-ticker
+Set up your API key in `.env`:
+```
+OPENAI_API_KEY=your_key_here
 ```
 
----
-
-
-## Golden Dataset Evals
-
-See detailed evaluation instructions in [evals/README.md](evals/README.md).
-
-This repo includes a behavior-based evaluation harness under `evals/`.
-
-- **Dataset:** `evals/cases/golden_v1.json` (30 cases)
-- **Scoring:** tool-use correctness, factuality, latency, and failure rate
-- **Output artifacts:** JSON + Markdown reports in `evals/results/`
-
-Run evals:
-
+Run it:
 ```bash
-python -m evals.runner
+npm run dev
 ```
 
-Run evals with gate enforcement:
+## Examples
 
+I included a few examples to show different ways you can use this:
+
+**Simple task** (one worker → manager → conductor):
 ```bash
-python -m evals.runner --aggregate-gate 0.70 --fail-on-gate
+npm run example:simple
 ```
 
-Run evals with optional LLM judge:
-
+**Advanced** (multiple specialized workers):
 ```bash
-python -m evals.runner --judge-model llama3.2:3b
+npm run example:advanced
 ```
 
-## Future Roadmap
-- **Dockerize:** Get this runnable for external demos
-- **Hosting:** Yep, needs it. (add it to my current herku acct?)
-- **UI:** Add a nextJS or reactJS front end.
-- **Guardrails & Safety:** Yes, do this :-). Currently the graph is configured with a maximum recursion limit to prevent infinite tool-calling loops.
-- **Testing & Evals:** Need to add.
-- **Persistent Checkpointing:** Add a SQLite backend to LangGraph to allow "resuming" interrupted agent sessions.
-- **Multi-Agent Orchestration:** Implementing a "Supervisor" pattern to delegate between specialized search and specialized code-execution agents.
-- **Agents/Tools:** Add another agent. Add MCP(s). - Specifically for my mongoDB vector index db instance.
-- **Hybrid RAG:** Consider merging this with my currnet RAG app?
+**Parallel execution** (workers running at the same time):
+```bash
+npm run example:parallel
+```
+
+## Project Structure
+
+```
+src/
+├── types/          - TypeScript interfaces
+├── agents/         - Worker, manager, and conductor implementations
+├── graph/          - LangGraph workflow setup
+└── utils/          - Helper functions
+
+examples/           - Different usage patterns
+```
+
+## Building Your Own Agent
+
+Want to add a custom agent? Just create a new function that takes the state and returns an updated state:
+
+```typescript
+async function myAgent(state: AgentState): Promise<Partial<AgentState>> {
+  // do your thing
+  return { /* your partial state changes */ };
+}
+```
+
+Then wire it into the graph in `src/graph/builder.ts`.
+
+## Why I Built This
+
+I wanted to see how well LangGraph handles multi-agent orchestration. The worker-manager-conductor pattern seemed like a good way to split up complex tasks, and it turns out it works pretty well.
+
+## Notes
+
+- Uses GPT-4 by default (you can change this in `src/utils/llm.ts`)
+- TypeScript gives you nice type safety
+- The graph structure makes it easy to add more agents or change the flow
+
+Feel free to fork this and mess around with it. Pull requests welcome if you build something cool.
+
+## License
+
+MIT
