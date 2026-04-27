@@ -1,3 +1,4 @@
+#WIP
 # Multi-Agent Conductor System
 
 A TypeScript multi-agent AI system built with LangGraph. I put this together to experiment with the worker-manager-conductor pattern for orchestrating AI agents.
