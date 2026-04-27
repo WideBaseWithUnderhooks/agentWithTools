@@ -1,6 +1,0 @@
-langchain-ollama
-langgraph
-langchain-community
-duckduckgo-search
-ddgs
-python-dotenv
