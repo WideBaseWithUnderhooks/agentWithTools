@@ -84,13 +84,11 @@ async function myAgent(state: AgentState): Promise<Partial<AgentState>> {
 
 Then wire it into the graph in `src/graph/builder.ts`.
 
-## Why I Built This
-
-I wanted to see how well LangGraph handles multi-agent orchestration. The worker-manager-conductor pattern seemed like a good way to split up complex tasks.
 
 ## Notes
 
-- Uses GPT-4 by default (you can change this in `src/utils/llm.ts`) / Works with using ollama locally.
-- TypeScript gives you nice type safety
+- WIP to use GPT-4 by default (you can change this in `src/utils/llm.ts`)
+- initial shell for AI news/blog(s) and aggregator
+- developed with using ollama locally
 - The graph structure makes it easy to add more agents or change the flow
 
