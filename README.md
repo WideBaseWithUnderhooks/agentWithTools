@@ -30,7 +30,7 @@ Install dependencies:
 npm install
 ```
 
-Set up your API key in `.env`:
+Set up your API key in local `.env`:
 ```
 OPENAI_API_KEY=your_key_here
 ```
@@ -71,9 +71,9 @@ src/
 examples/           - Different usage patterns
 ```
 
-## Building Your Own Agent
+## Building Agents:
 
-Want to add a custom agent? Just create a new function that takes the state and returns an updated state:
+Just create a new function that takes the state and returns an updated state:
 
 ```typescript
 async function myAgent(state: AgentState): Promise<Partial<AgentState>> {
@@ -86,16 +86,11 @@ Then wire it into the graph in `src/graph/builder.ts`.
 
 ## Why I Built This
 
-I wanted to see how well LangGraph handles multi-agent orchestration. The worker-manager-conductor pattern seemed like a good way to split up complex tasks, and it turns out it works pretty well.
+I wanted to see how well LangGraph handles multi-agent orchestration. The worker-manager-conductor pattern seemed like a good way to split up complex tasks.
 
 ## Notes
 
-- Uses GPT-4 by default (you can change this in `src/utils/llm.ts`)
+- Uses GPT-4 by default (you can change this in `src/utils/llm.ts`) / Works with using ollama locally.
 - TypeScript gives you nice type safety
 - The graph structure makes it easy to add more agents or change the flow
 
-Feel free to fork this and mess around with it. Pull requests welcome if you build something cool.
-
-## License
-
-MIT
